@@ -151,7 +151,10 @@ page_header()
 st.sidebar.header("🔎 Filters")
 
 cleaned_df = df.drop_duplicates().copy()
-
+# Clean travel purpose names
+cleaned_df[purpose_col] = cleaned_df[purpose_col].replace({
+    "Work and job": "Work"
+})
 # Clean transport mode names
 cleaned_df[mode_col] = cleaned_df[mode_col].replace({
     "Two Wheeler and Train": "Two-wheeler",
@@ -169,8 +172,23 @@ if area_col in cleaned_df.columns:
     ]
 
 if purpose_col in cleaned_df.columns:
-    options = sorted(cleaned_df[purpose_col].dropna().astype(str).unique())
-    selected = st.sidebar.multiselect("Travel Purpose", options, default=options)
+
+    # Original survey options
+    options = [
+        "Work",
+        "Education",
+        "Shopping",
+        "Medical/Personal work",
+        "Recreation",
+        "Other"
+    ]
+
+    selected = st.sidebar.multiselect(
+        "Travel Purpose",
+        options,
+        default=options
+    )
+
     filtered_df = filtered_df[
         filtered_df[purpose_col].astype(str).isin(selected)
     ]
