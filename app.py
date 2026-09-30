@@ -407,7 +407,7 @@ with tab5:
 # ID3 ANALYSIS
 # ---------------------------------------------------------
 with tab6:
-    st.header("🤖 ID3 Decision Tree Analysis")
+    st.header("🤖 ID3 Analysis")
 
     result = id3.run(cleaned_df)
 
